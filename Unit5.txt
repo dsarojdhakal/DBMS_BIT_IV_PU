@@ -1,0 +1,73 @@
+1. Entity Constraints in DBMS:
+
+        Entity constraints ensure the integrity and uniqueness of data in a database table. 
+        The main entity constraint is the PRIMARY KEY constraint, which ensures that each row in a table is uniquely identifiable.
+        
+        Types of Entity Constraints:
+            - Primary Key Constraint → Ensures a column (or set of columns) has a unique and non-null value for each row.
+            - Unique Constraint → Ensures that all values in a column are unique (but allows NULL values).
+            - Not Null Constraint → Ensures a column cannot have NULL values.
+ 
+        Example:
+        CREATE TABLE Student (
+            StudentID INT PRIMARY KEY,         -- Entity Constraint (Primary Key)
+            StudentName VARCHAR(50) NOT NULL,  -- Entity Constraint (Not Null)
+            Email VARCHAR(100) UNIQUE          -- Entity Constraint (Unique)
+        );
+
+
+
+2. Domain Constraints in DBMS:
+
+    Domain constraints define the permissible values that an attribute (column) can hold. 
+    This ensures that the data entered into a column falls within a specific range, type, or format.
+
+    Types of Domain Constraints:
+        - Data Type Constraint → Ensures a column stores values of a specific data type (e.g., INT, VARCHAR, DATE).
+        - Check Constraint → Restricts values based on a specified condition (e.g., Age > 18).
+        - Default Constraint → Assigns a default value to a column if no value is provided during insertion.
+
+    Example:
+    CREATE TABLE Employees (
+        EmpID INT PRIMARY KEY,
+        Name VARCHAR(50) NOT NULL,
+        Age INT CHECK (Age >= 18 AND Age <= 65),
+        Email VARCHAR(100) UNIQUE
+    );
+
+    - Age must be between 18 and 65.
+    - Name cannot be NULL.
+    - Email must be unique.
+
+    Summary:
+    - Entity constraints ensure uniqueness and existence (e.g., PRIMARY KEY, UNIQUE, NOT NULL).
+    - Domain constraints restrict the type, format, or range of values (e.g., data type, CHECK, ENUM).
+
+
+
+3. Referential Integrity in DBMS:
+
+    - Referential integrity ensures that relationships between tables remain consistent. 
+    -It is enforced using FOREIGN KEY constraints, which ensure that a value in 
+        one table (the child) corresponds to a valid value in another table (the parent).
+
+    - A FOREIGN KEY in one table points to a PRIMARY KEY or UNIQUE constraint 
+        in another table.
+
+    Example:
+    CREATE TABLE Department (
+        DeptID INT PRIMARY KEY,
+        DeptName VARCHAR(50) NOT NULL
+    );
+
+    CREATE TABLE Employee (
+        EmpID INT PRIMARY KEY,
+        EmpName VARCHAR(50) NOT NULL,
+        DeptID INT PRIMARY KEY,
+        FOREIGN KEY (DeptID) REFERENCES Department(DeptID)
+    );
+
+    - DeptID in Employee must exist in Department.
+    - Prevents inserting an Employee with a non-existing DeptID.
+    - Prevents deleting a Department if Employees reference it 
+        (unless ON DELETE CASCADE is specified).

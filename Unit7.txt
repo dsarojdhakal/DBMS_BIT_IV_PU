@@ -1,0 +1,115 @@
+Unit 7 : Database Security
+---------------------------------------
+
+    - Database security refers to the processes, technologies, and measures 
+        used to protect a database from unauthorized access, misuse, or 
+        malicious threats. 
+    -   It ensures the confidentiality, integrity, and availability of
+        data stored in the database.
+
+
+1.Different Levels of Database Security:
+    a. Physical Level Security:
+        - Protects the hardware and physical devices where the database resides.
+        - Includes measures like restricted access to server rooms, 
+        surveillance, and disaster recovery plans.
+    b. Operating System Level Security:
+        - Secures the operating system hosting the database.
+        - Involves user authentication, permissions, and regular updates.
+    c. Database Level Security:
+        - Controls access to the database itself.
+        - Uses user accounts, roles, privileges, and encryption.
+    d. Application Level Security:
+        - Ensures that applications interacting with the database are secure.
+        - Includes input validation, secure coding practices, and 
+            proper authentication.
+    e. Network Level Security:
+        - Protects data as it travels across networks.
+        - Uses firewalls, VPNs, SSL/TLS encryption.
+
+
+
+2. Access Control:
+    - Access control is a fundamental aspect of database security.
+    - It determines who can access the database and what operations
+     they can perform.
+    - Common mechanisms include:
+        a. Authentication: Verifying the identity of users 
+            (e.g., username/password, biometrics).
+        b. Authorization: Granting permissions to users based 
+            on roles.
+        c. Auditing: Tracking and recording user activities 
+            for monitoring and compliance.
+    - Proper access control helps prevent unauthorized data access, 
+        modification, or deletion.
+
+
+
+3. Authentication in Database Security:
+    - Authentication is the process of verifying the identity 
+        of users who are trying to access the database.
+    - It ensures that only authorized individuals can log in 
+        and interact with the database.
+    - Common authentication methods include:
+        a. Password-based authentication: Users provide a username and password.
+        b. Multi-factor authentication (MFA): Requires two or more verification 
+            methods (e.g., password and OTP).
+        c. Biometric authentication: Uses fingerprints, facial recognition.
+        d. Certificate-based authentication: Utilizes digital certificates to verify identity.
+    - Strong authentication mechanisms help prevent unauthorized 
+        access and protect sensitive data.
+
+
+
+4. Authorization in Database Security:
+    - Authorization is the process of determining what actions 
+        an authenticated user is allowed to perform on the database.
+    - It involves assigning privileges and roles to users based on their responsibilities.
+    - Common authorization mechanisms include:
+        a. Role-based access control (RBAC): Users are assigned roles, 
+            and each role has specific permissions.
+        b. Privilege management: Granting or revoking rights to perform operations 
+            such as SELECT, INSERT, UPDATE, DELETE.
+        c. Object-level permissions: Controlling access to specific tables, 
+            views, or procedures.
+    - Proper authorization ensures that users can only access and modify data 
+        relevant to their role, reducing the risk of data breaches or misuse.
+
+
+
+5. Non-repudiation in Database Security:
+    - Non-repudiation ensures that actions or transactions performed in the 
+        database cannot be denied by the user who performed them.
+    - It provides proof of the origin and integrity of data and operations.
+    - Common mechanisms include:
+        a. Digital signatures: Used to verify the identity of users and 
+            the authenticity of transactions.
+        b. Audit trails: Detailed logs that record user activities, changes, 
+            and access events.
+        c. Time-stamping: Attaching time information to transactions 
+            to establish when actions occurred.
+    - Non-repudiation is important for accountability, compliance, and forensic 
+        investigations in database environments.
+
+
+
+6. Encryption and Decryption in Database Security:
+    - Encryption is the process of converting data into a coded format 
+        to prevent unauthorized access.
+    - Decryption is the process of converting encrypted data back to its 
+        original form for authorized users.
+    - Encryption helps protect sensitive data both at rest (stored in the 
+        database) and in transit (moving across networks).
+    - Common encryption mechanisms include:
+        a. Transparent Data Encryption (TDE): Automatically encrypts database 
+            files at the storage level.
+        b. Column-level encryption: Encrypts specific columns containing 
+            sensitive information.
+        c. End-to-end encryption: Ensures data is encrypted from the source to 
+            the destination.
+        d. SSL/TLS encryption: Secures data transmitted between clients and the
+             database server.
+    - Proper key management is essential to ensure only authorized users can 
+        decrypt and access the data.
+    - Encryption and decryption are critical for maintaining data confidentiality 
+        and compliance with security standards.

@@ -1,0 +1,100 @@
+Unit 9: Backup and Recovery
+
+
+1.Introduction 
+    - Backup and recovery are crucial for maintaining data integrity and 
+        availability in DBMS.
+    - Backups protect against data loss from system crashes, media failures, 
+        and application errors.
+    - Recovery techniques restore the database to a consistent state after failures.
+    - Effective backup and recovery minimize downtime and prevent loss of critical 
+        information.
+
+
+2.Failure of Database System 
+    - Database systems can fail due to:
+        a. hardware faults,
+        b. software bugs,
+        c. power outages, or
+        d. human errors.
+    - Such failures may lead to loss or corruption of data, making backup and 
+        recovery essential.
+    - Backup strategies ensure that a copy of the database is available for restoration.
+    - Recovery techniques help restore the database to its last consistent state, 
+        minimizing data loss.
+    - Proper backup and recovery planning reduces the impact of failures and ensures 
+        business continuity.
+
+
+3.Backup Devices
+    - Backup devices are hardware or storage media used to store database backups.
+    - Common backup devices include:
+        a. Magnetic tapes: Traditionally used for large-scale backups and storage.
+        b. Hard disk drives (HDDs): Used for fast and reliable backup storage.
+        c. Solid-state drives (SSDs): Provide faster backup and recovery operations.
+        d. Optical media (CD/DVD/Blu-ray): Suitable for small-scale or long-term 
+            backups.
+        e. Network-attached storage (NAS): Enables centralized backup storage 
+            accessible over a network.
+        f. Cloud storage: Offers scalable, offsite backup solutions with remote 
+            accessibility.
+    - The choice of backup device depends on factors such as data volume, speed 
+        requirements, cost, and recovery objectives.
+    - Regular testing and maintenance of backup devices are essential to ensure 
+        successful data restoration when needed.
+
+
+4.Backup of Database and Database System
+    - Database backup refers to creating a copy of the database data and schema 
+        to Protects against data loss.
+    - Backups can be performed at different levels:
+        a. Physical backup: Copies the actual database files (data files, log files, 
+            control files).
+        b. Logical backup: Exports database objects (tables, views, procedures) and 
+            their data.
+    - Database system backup may also include configuration files and scripts 
+        necessary for system restoration.
+    - Regular backups are essential to ensure that both data and system components 
+        can be recovered after a failure.
+    - Backup frequency and retention policies should be defined based on business 
+        requirements and regulatory compliance.
+    - Automated backup solutions help reduce human error and ensure consistency 
+        in backup operations.
+    - Secure storage and encryption of backups are important to protect sensitive 
+        data from unauthorized access.
+
+
+5.Techniques Used in Recovery of Database System
+    - Recovery techniques are employed to restore the database to a consistent state 
+        after a failure. Common techniques include:
+
+        a. Write-Ahead Logging (WAL): 
+            - All changes are first recorded in a log before being applied to the 
+                database.
+            - Ensures that committed transactions can be redone and uncommitted 
+                transactions can be undone during recovery.
+
+        b. Checkpoints:
+            - Periodic checks of the database state are taken.
+            - Simplifies recovery by reducing the amount of log data that needs to 
+                be processed.
+
+        c. Shadow Paging:
+            - Maintains two copies of the database pages: current and shadow.
+            - Changes are made to the current pages, and the shadow pages are used 
+                for recovery if a failure occurs.
+
+        d. Immediate Update and Deferred Update:
+            - Immediate update: Changes are applied to the database as soon as a 
+                transaction issues an update.
+            - Deferred update: Changes are applied only after a transaction 
+                successfully commits.
+
+
+        e. Redo and Undo Operations:
+            - Redo: Reapplies changes of committed transactions.
+            - Undo: Reverses changes of uncommitted transactions.
+
+    - These techniques help ensure data integrity, consistency, and durability 
+        in the event of system crashes, media failures, or other errors.
+

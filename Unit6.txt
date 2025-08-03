@@ -1,0 +1,143 @@
+1. Normalization: 
+    - Normalization is the process of organizing data in a database to reduce
+     duplication and improve data quality. 
+    - It helps to break large tables into smaller related tables. 
+    - The main goal is to store each piece of data only once. 
+    - It makes the database easier to update and avoids errors. 
+    - Normalization also improves storage and keeps the database clean and simple.
+
+2. Pitfalls of Relational Model: 
+    - The relational model is simple and powerful, but it has some problems: 
+    
+        a. Data Redundancy: Same data may be repeated in many places. 
+        
+        b. Update Anomalies: Changes in one place may not reflect everywhere, 
+        causing wrong data. 
+        
+        c. Insert Anomalies: Sometimes we can’t add new data unless other 
+        related data is also available. 
+        
+        d. Delete Anomalies: Deleting one piece of data may remove other 
+        important data too. 
+        
+    - These problems make the database hard to manage and can lead to mistakes. 
+    - Normalization helps to solve these problems.
+
+
+3. Introduction to Functional Dependencies: 
+    - Functional dependency shows a relationship between columns. 
+    - If one column’s value can decide another column’s value, it's a functional dependency. 
+    - Example: Roll_No → Name means if we know Roll_No, we can find Name. 
+    - Functional dependencies help in checking if a table is well designed. 
+    - They are used in normalization to avoid bad design and problems like data repetition.
+
+    Types of Functional Dependencies:
+        a. Trivial Dependency: 
+            A → A or A → part of A. Always true.
+        b. Non-Trivial Dependency: 
+            A → B, where B is not a part of A. 
+            Most useful in normalization.
+        c. Full Functional Dependency: 
+            A → B, and if we remove any part of A, it no longer determines B.
+        d. Partial Dependency: 
+            A → B, but B is also dependent on part of A. 
+            Happens in tables with composite keys.
+        e. Transitive Dependency: 
+            A → B and B → C, so A → C. 
+            It causes problems and should be removed in normalization.
+
+4. Details of 1NF (First Normal Form): 
+    - A table is in 1NF if all values in each column are single (atomic) 
+    and repeating groups are removed. 
+    - Each cell should contain only one value, not a list or set. 
+    - Each row must be unique and have a primary key.
+
+    Steps to achieve 1NF:
+        a. Remove repeating groups or multiple values from a column.
+        b. Make sure each column holds atomic (simple) values.
+        c. Identify a primary key to uniquely identify each row.
+
+    Example: If a column contains multiple phone numbers, 
+        split them into separate rows or columns.
+
+    -1NF helps in making the data clean and easy to manage.
+
+
+5. Details of 2NF (Second Normal Form): 
+    - A table is in 2NF if it is already in 1NF and there is no partial dependency. 
+    - This means non-key columns must depend on the whole primary key, not just part of it.
+
+    2NF is mostly used when the table has a composite primary key 
+    (more than one column as key).
+
+    Steps to achieve 2NF:
+        a. Make sure the table is in 1NF.
+        b. Remove columns that depend only on part of the primary key.
+        c. Move them to a new table and link them with a foreign key.
+
+    Example: In a table with key (StudentID, CourseID), 
+            if StudentName depends only on StudentID, move StudentName to a new table.
+
+    -2NF helps in reducing data repetition and makes updates easier.
+
+6. 3NF (Third Normal Form): 
+    - A table is in 3NF if it is already in 2NF and there is no transitive dependency. 
+    - This means non-key columns should depend only on the primary key, 
+    not on another non-key column.
+
+    Steps to achieve 3NF:
+        a. Make sure the table is in 2NF.
+        b. Identify columns that depend on other non-key columns.
+        c. Move them to a new table and link it using a foreign key.
+
+    Example: If we have a table with StudentID → DeptID → DeptName, 
+            then DeptName depends on DeptID, not directly on StudentID. 
+            So we move DeptID and DeptName to a new table.
+
+    -3NF removes extra dependency and makes the data structure more clear and clean.
+
+
+7. BCNF (Boyce-Codd Normal Form): 
+    - BCNF is a stronger version of 3NF. 
+    - A table is in BCNF if it is in 3NF and every determinant is a candidate key. 
+    - A determinant is any column (or set of columns) that decides the value of another column.
+
+    -BCNF fixes some special cases where 3NF still allows problems.
+
+    Steps to achieve BCNF:
+        a. Make sure the table is in 3NF.
+        b. Check if any non-candidate key determines another column.
+        c. If yes, move those columns to a new table.
+
+    Example: If TeacherID and Subject together form the key, 
+            but Subject → ClassRoom, then Subject is a determinant but not a candidate key. 
+            So, we split the table.
+
+    -BCNF removes all hidden problems and gives a very strong table design.
+
+
+
+8. Introduction to 4NF and 5NF
+
+    4NF (Fourth Normal Form):
+        -A table is in 4NF if it is in BCNF and has no multi-valued dependency.
+        -Multi-valued dependency means a column has more than one independent 
+        value for another column.
+        Example: If a person has multiple phone numbers and multiple email addresses, 
+                and both are stored in the same table, it creates a multi-valued dependency.
+        Solution: Split the table into two separate tables, one for phone numbers 
+            and one for emails.
+        
+        -4NF helps remove repetition caused by storing unrelated multi-values together.
+    
+    
+    5NF (Fifth Normal Form):
+        -A table is in 5NF if it is in 4NF and has no join dependency.
+        -Join dependency means the table can be split into smaller tables and then 
+        joined again without losing information.
+        -5NF is used when a table has complex relationships that require splitting 
+        into multiple tables.
+        -It ensures that data is fully broken down and perfectly reconstructed 
+        using joins.
+
+        -5NF is rare but useful in very complex database designs.

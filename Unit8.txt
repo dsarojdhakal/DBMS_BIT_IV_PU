@@ -1,0 +1,220 @@
+Unit8 : Transaction and Query Processing
+
+
+1.Introduction to transaction
+    * a transaction is a sequence of database operations performed as a single 
+    logical  unit of work.  
+    * transactions ensure data integrity and consistency in a database by following 
+    the ACID properties:  
+        - Atomicity: All operations in a transaction are completed or none are.  
+        - Consistency: A transaction brings the database from one valid state to another.  
+        - Isolation: Transactions do not interfere with each other.  
+        - Durability: Once committed, changes from a transaction are permanent.  
+    * transactions help handle errors, system failures, and concurrent access in databases.
+
+
+2. State of a Transaction:
+    - A transaction goes through several states during its execution. 
+    - These states help in tracking the progress and managing the outcome of transactions. 
+    - The main states of a transaction are: 
+        a. Active: - The transaction is currently being executed. 
+                    - Operations like read/write are taking place. 
+        b. Partially Committed: - All operations have been executed, 
+                                but the final commit is yet to be done. 
+        c. Committed: - Changes made by the transaction are saved permanently. 
+                        - The transaction has completed successfully. 
+        d. Failed: - An error occurred, and the transaction cannot proceed further. 
+        e. Aborted: - The transaction has been rolled back. 
+                    - Database is restored to its previous state.
+
+3. ACID Properties
+    - ACID is a set of properties that ensure reliable processing of database transactions. 
+    - It stands for Atomicity, Consistency, Isolation, and Durability. 
+
+        a. Atomicity: 
+            - Ensures that all operations within a transaction are 
+            completed successfully. 
+            - If any part of the transaction fails, the entire transaction is rolled back. 
+        
+        b. Consistency: 
+            - Guarantees that a transaction transforms the database from one 
+                valid state to another valid state. 
+            - Maintains data integrity before and after the transaction.
+        
+        c. Isolation: 
+            - Ensures that concurrent transactions do not interfere with each other. 
+            - The intermediate state of a transaction is invisible to others. 
+        
+        d. Durability: 
+            - Once a transaction is committed, its changes are permanent. 
+            - Data remains safe even if the system crashes after the transaction.
+
+4. Introduction to Concurrency Control: 
+    - Concurrency control is a technique used to ensure that multiple transactions 
+        can occur simultaneously without causing data inconsistency. 
+    - It helps maintain data integrity and isolation in a multi-user environment. 
+    - Without proper concurrency control, problems like lost updates, dirty reads, 
+        and uncommitted data can occur. 
+    - Common concurrency control techniques include: 
+
+        a. Lock-based Protocols: 
+            - Use locks to control access to data items. 
+            - Types of locks include shared locks (read) and exclusive locks (write). 
+            - Ensures that only one transaction can modify data at a time. 
+
+        b. Timestamp-based Protocols: 
+            - Assign a unique timestamp to each transaction. 
+            - Transactions execute based on their timestamps to maintain serial order. 
+            - Prevents conflicts by comparing timestamps during operations. 
+
+        c. Validation-based Protocols: 
+            - Also called optimistic concurrency control. 
+            - Transactions go through three phases: 
+                a.read, 
+                b.validation, and 
+                c.write. 
+            - A transaction is allowed to commit only if it does not conflict with 
+                others during the validation phase. 
+
+        d. Serializability: 
+            - when many transactions run together, the final result should be the 
+                same as if they were run one after another. 
+            - It helps make sure the database stays correct even when multiple users 
+                work at the same time.
+
+        e. Conflict Serializability: 
+            - A specific type of serializability where transactions are reordered 
+                by swapping non-conflicting operations. 
+            - Two operations conflict if they belong to different transactions and 
+                access the same data item, and at least one is a write operation.
+
+
+5. Introduction to Query Processing: 
+    - Query processing is the series of steps the database system takes to execute 
+        a query and return the desired results. 
+    - It transforms a high-level query (like SQL) into efficient low-level 
+        operations that access the data. 
+    - The goal is to find the best way to get data quickly and correctly. 
+    - Main stages of query processing include: parsing, optimization, and execution. 
+    - Good query processing improves performance and reduces resource use in 
+        the database.
+
+6. Steps Used in Query Processing: 
+    - Query processing involves several key steps to execute a query efficiently 
+        and correctly. 
+    - The main steps of query processing are: 
+
+        a. Parsing and Translation: 
+            - The query is checked for correct syntax and translated into an 
+                internal format called a query tree or query graph. 
+
+        b. Query Optimization: 
+            - The system finds the most efficient way to execute the query 
+                by considering different query plans. 
+            - The optimizer estimates costs like CPU time and disk I/O for each plan. 
+
+        c. Query Evaluation: 
+            - The chosen query plan is executed by accessing the database and 
+                performing operations like joins, selections, and projections. 
+        
+        d. Result Formatting: 
+            - The results are formatted and returned to the user or application.
+
+
+7. Introduction to Lock Management: 
+    - Lock management is a method used to control access to data in a database 
+        during transactions to ensure concurrency and consistency. 
+    - Locks prevent multiple transactions from accessing the same data simultaneously 
+        in ways that could cause conflicts or errors. 
+    - The lock manager keeps track of all locks and grants or denies lock requests 
+        based on the current state. 
+    - Types of locks include: 
+
+        a.Shared Locks (S-Locks): 
+            -Allow multiple transactions to read the same data item at the same 
+                time without interfering with each other. 
+            -No transaction can write to the data item while shared locks are held. 
+            -Useful when many users need to view data concurrently but not modify it. 
+
+        b.Exclusive Locks (X-Locks): 
+            -Allow only one transaction to write or modify a data item at a time. 
+            -When an exclusive lock is held on a data item, no other transaction can 
+                read or write it until the lock is released. 
+            -Ensures data integrity by preventing simultaneous conflicting updates. 
+            -Proper lock management helps avoid problems like lost updates and deadlocks.
+
+
+8. Lock Conversions: 
+    - Lock conversion is the process of changing a lock held by a transaction on 
+        a data item from one type to another to allow different kinds of operations. 
+    - Commonly, a transaction may start with a shared lock when reading data and 
+        later need to convert it to an exclusive lock if it wants to update that data. 
+    - Lock conversion must be carefully managed to avoid conflicts and ensure data 
+        consistency. 
+    - If the requested conversion is not possible immediately (because another 
+        transaction holds a conflicting lock), 
+        the requesting transaction may have to wait or be rolled back to prevent deadlocks. 
+    - Proper lock conversion helps improve concurrency by allowing transactions 
+        to change  locks as needed.
+
+
+9. Dealing with Deadlocks: 
+    - Deadlocks happen when two or more transactions wait for each other’s locks 
+        and none can move forward, so they get stuck. 
+    - To fix deadlocks, database systems use different ways: 
+    
+        a. Deadlock Prevention: 
+            -Deadlock prevention is a technique where the system ensures that 
+                deadlocks never occur by controlling how transactions acquire locks.
+            -The system stops transactions from getting locks in an order 
+                that can cause deadlocks. 
+            -Sometimes it uses time limits to avoid waiting too long. 
+            -Uses fixed lock order.
+            -Avoids circular wait.
+        
+        b. Deadlock Detection: 
+            -Deadlock detection is a method where the system monitors transaction 
+                activities to identify circular wait conditions (deadlocks) when they occur.
+            -The system checks regularly to find if transactions are stuck 
+                waiting in a circle. 
+            -If it finds this, it knows a deadlock happened. 
+        
+        c. Deadlock Resolution: 
+            -Deadlock resolution is the process of removing deadlocks after they are 
+                detected by aborting one or more transactions.
+            -After finding a deadlock, the system stops one or more transactions to 
+                break the deadlock and let others continue. 
+            -The system may choose which transaction to abort based on factors like 
+                transaction priority, waiting period, or the amount of work done.
+        
+        d. Timeouts: 
+            -Timeouts are a simple technique where a transaction is automatically 
+                aborted if it waits too long for a resource.
+            -If a transaction waits too long for a lock, the system cancels it 
+                to avoid deadlocks. 
+            - Handling deadlocks well helps keep the database working smoothly and 
+                available for users.
+            -Timeouts are easier to implement but may cause unnecessary aborts, even 
+                when a deadlock hasn’t actually occurred.
+
+
+10. Introduction to Crash Recovery: 
+    - Crash recovery is the process of restoring a database to a correct state 
+        after a failure, such as a power outage or system crash. 
+    - Its goal is to make sure the database stays consistent and no data is lost 
+        or corrupted. 
+    - The recovery system uses logs and backups to undo incomplete transactions 
+        and redo committed ones. 
+    - Proper crash recovery helps protect data and ensures the database can 
+        continue working smoothly after problems.
+
+
+11. The Write-Ahead Log (WAL) Protocol: 
+    - The Write-Ahead Log protocol ensures that all changes made by a transaction 
+        are first recorded in a log before they are applied to the database. 
+    - This log records details of the transaction’s actions, so if a crash happens, 
+        the system can use the log to recover. 
+    - WAL guarantees that no data changes are lost and helps maintain durability 
+        and atomicity of transactions. 
+    - By writing to the log first, the database can undo or redo transactions 
+        during recovery to keep data consistent.
